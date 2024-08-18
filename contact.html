@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>HOMO NATURANS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=https://fonts.googleapis.com/css?family=Inconsolata:400,500,600,700|Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyPortfolio
+  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
+  * Updated: Mar 17 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Navbar ======= -->
+  <div class="collapse navbar-collapse custom-navmenu" id="main-navbar">
+    <div class="container py-2 py-md-5">
+      <div class="row align-items-start">
+        <div class="col-md-2">
+          <ul class="custom-menu">
+            <li class="active"><a href="index.html">Главная</a></li>
+            <!-- <li><a href="about.html">About Me</a></li> -->
+            <!-- <li><a href="services.html">Services</a></li> -->
+            <!-- <li><a href="works.html">Товары</a></li> -->
+            <!-- <li><a href="contact.html">Заказ</a></li> -->
+          </ul>
+        </div>
+        <div class="col-md-6 d-none d-md-block  mr-auto">
+          <div class="tweet d-flex">
+            <div>
+              <p>Дополните свой гардероб стильным аксессуаром, который подчеркнет вашу силу и уверенность.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 d-none d-md-block">
+          <h3>HOMO NATURANS</h3>
+          <p>г. Минеральные Воды</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="navbar navbar-light custom-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">HOMO NATURANS</a>
+      <a href="#" class="burger" data-bs-toggle="collapse" data-bs-target="#main-navbar">
+        <span></span>
+      </a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <section class="section pb-5">
+      <div class="container">
+
+        <div class="row mb-5 align-items-end">
+          <div class="col-md-6" data-aos="fade-up">
+            <h2>Заказ</h2>
+            <p class="mb-0">Заполните форму
+            </p>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-5 mb-md-0" data-aos="fade-up">
+
+            <form id = "orderForm">
+
+              <div class="row gy-3">
+                <div class="col-md-6 form-group">
+                  <label for="name">ФИО</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="name">Email / Gmail</label>
+                  <input type="text" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" class="form-control" name="email" id="email" required>
+                </div>
+                <!-- подгрузка данных о товарах из json -->
+                <div class="col-md-12 form-group">
+                    <label for="product">Выберите товары</label>
+                    <select class="form-control" id="product" name="product" multiple size="5" required>
+                    </select>
+                    <ul id="selected-products"></ul>
+                </div>
+
+                <script>
+                    const data = [
+                        {
+                            "name": "Ремень кожаный черный",
+                            "description": "артикул - 011",
+                            "price": "---"
+                        },
+                        {
+                            "name": "Ремень кожаный темно-коричневый",
+                            "description": "артикул - 012",
+                            "price": "---"
+                        },
+                        {
+                            "name": "Ремень кожаный светло-коричневый",
+                            "description": "артикул - 013",
+                            "price": "---"
+                        },
+                        {
+                            "name": "Ремень кожаный черный, матовый",
+                            "description": "артикул - 014",
+                            "price": "---"
+                        },
+                        {
+                            "name": "Картхолдер темно-коричневый",
+                            "description": "артикул - 021",
+                            "price": "---"
+                        },
+                        {
+                            "name": "Картхолдер светло-коричневый",
+                            "description": "артикул - 022",
+                            "price": "---"
+                        }
+                    ];
+
+
+                    const productSelect = document.getElementById('product');
+                    const selectedProductsList = document.getElementById('selected-products');
+
+                    data.forEach(product => {
+                        const option = document.createElement('option');
+                        option.value = product.name;
+                        option.textContent = `${product.name} - ${product.price} - ${product.description}`;
+                        productSelect.appendChild(option);
+                    });
+
+                    productSelect.addEventListener('click', () => {
+                      const selectedProducts = Array.from(productSelect.selectedOptions);
+                      const existingListItems = Array.from(selectedProductsList.children);
+
+                      selectedProducts.forEach(selectedProduct => {
+                        const productName = selectedProduct.textContent;
+                        const existingItem = existingListItems.find(li => li.textContent === productName);
+
+                        if (existingItem) {
+                          // If the product is already in the list, remove it
+                          selectedProductsList.removeChild(existingItem);
+                        } else {
+                          // If the product is not in the list, add it
+                          const listItem = document.createElement('li');
+                          listItem.textContent = productName;
+                          selectedProductsList.appendChild(listItem);
+                        }
+                      });
+                    });
+                </script>
+
+                <div class="col-md-12 form-group">
+                  <label for="name">Комментарий к заказу</label>
+                  <textarea class="form-control" name="message" id = "message" cols="30" rows="10" required></textarea>
+                </div>
+                <div class="col-md-6 mt-0 form-group mt-3">
+                  <input type="submit" class="readmore d-block w-100" value="Отправить сообщение">
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+<script>
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          // Fetch form data
+          const formData = new FormData(event.target);
+          
+          // Prepare message to be sent to Telegram
+          let message = `
+            Новый клиент:
+
+Фио : ${formData.get('name')}
+Контакт : ${formData.get('email')}
+Товар : ${formData.get('subject')}
+          `;
+          
+          // Check if comment is provided, otherwise set a default one
+          const comment = formData.get('message');
+          if (comment.trim() !== '') {
+            message += `\n📝 : ${comment}`;
+          } else {
+            message += "\n📝 : [No message]";
+          }
+          
+          // Your Telegram Bot API token
+          const token = '6860207980:AAFLub_Sl8uYJjNfxGoNI9XMhf5V069HQXI';
+          // Your Telegram chat ID
+          const chatID = '-1002084922077';
+          
+          // Construct the Telegram API URL
+          const telegramAPI = `https://api.telegram.org/bot${token}/sendMessage`;
+          
+          // Prepare data to be sent to Telegram
+          const data = new URLSearchParams({
+            chat_id: chatID,
+            text: message
+          });
+          
+          // Send the message to Telegram using AJAX
+          fetch(telegramAPI, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            alert('Сообщение успешно доставлено администратору!');
+            // Optionally reset the form after successful submission
+            document.getElementById("orderForm").reset();
+          })
+          .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+            alert('Failed to submit order. Please try again later.');
+          });
+        });
+      </script>
+          <div class="col-md-4 ml-auto order-2" data-aos="fade-up">
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <strong class="d-block mb-1">Пример заполнения формы.</strong>
+                <span>ФИО - Иван Иванович Иванов, Артикул товара - 011</span>
+              </li>
+              <li class="mb-3">
+                <strong class="d-block mb-1"> Email / Gmail</strong>
+                <span>qwerty123@mail.ru</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 social text-md-end">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display JSON Data</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <div id="product-list"></div>
+
+    <script>
+        // JavaScript для загрузки и отображения JSON данных
+        fetch('tovari/products.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                data.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.innerHTML = `<h2>${product.name}</h2><p>${product.description}</p><p>Price: ${product.price}</p>`;
+                    productList.appendChild(productDiv);
+                });
+            })
+            .catch(error => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = `<p>Failed to load products: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>
